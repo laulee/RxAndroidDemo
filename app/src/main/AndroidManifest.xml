@@ -19,6 +19,10 @@
         <activity
             android:name=".ui.rxcyclelife.RxCycleLifeActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.rxbinding.RxBindingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

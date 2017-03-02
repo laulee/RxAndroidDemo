@@ -12,12 +12,15 @@ import android.widget.Toast;
 import com.laulee.rx.R;
 import com.laulee.rx.adapter.BaseRecyclerAdapter;
 import com.laulee.rx.adapter.GitHubUserAdapter;
+import com.laulee.rx.bean.ErrorBean;
 import com.laulee.rx.bean.GitHubUser;
 import com.laulee.rx.http.ErrorHandler;
 import com.laulee.rx.http.RetrofitHelper;
 import com.laulee.rx.http.service.GitHubService;
+import com.laulee.rx.ui.rxbinding.RxBindingActivity;
 import com.laulee.rx.ui.rxcyclelife.RxCycleLifeActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -59,8 +62,13 @@ public class GitHubUserActivity extends AppCompatActivity {
                 new BaseRecyclerAdapter.IOnItemClickListener<GitHubUser>( ) {
                     @Override
                     public void onItemClick( View view, GitHubUser entity, int position ) {
-                        startActivity(
-                                new Intent( GitHubUserActivity.this, RxCycleLifeActivity.class ) );
+                        if(position%2==0){
+                            startActivity(
+                                    new Intent( GitHubUserActivity.this, RxCycleLifeActivity.class ) );
+                        }else {
+                            startActivity(
+                                    new Intent( GitHubUserActivity.this, RxBindingActivity.class ) );
+                        }
                     }
                 } );
         getUserData( );
@@ -71,17 +79,22 @@ public class GitHubUserActivity extends AppCompatActivity {
         final GitHubService gitHubService = RetrofitHelper.getGitHubService( );
         Subscription subscription = gitHubService.getUserData( "adfasdfasdfas" )
                 .subscribeOn( Schedulers.io( ) ).observeOn( AndroidSchedulers.mainThread( ) )
-                .subscribe( new Action1<GitHubUser>( ) {
-                    @Override
-                    public void call( GitHubUser gitHubUser ) {
-                        gitHubUserAdapter.addItem( gitHubUser );
-                    }
-                }, new ErrorHandler( ) {
-                    @Override
-                    public void onError( String s ) {
-                        Toast.makeText( getApplicationContext( ), s, Toast.LENGTH_LONG ).show( );
-                    }
-                } );
+                .subscribe( gitHubUserAdapter::addItem,
+                            new ErrorHandler<ErrorBean>( ErrorBean.class ) {
+                                @Override
+                                public void onError( ErrorBean errorBean ) {
+                                    Toast.makeText( getApplicationContext( ),
+                                                    errorBean.getMessage( ), Toast.LENGTH_LONG )
+                                            .show( );
+                                }
+
+                                @Override
+                                public void onException( IOException e ) {
+                                    Toast.makeText( getApplicationContext( ), e.getMessage(), Toast.LENGTH_LONG )
+                                            .show( );
+                                }
+
+                            } );
 
         Subscription subscription1 = gitHubService.getUserData( "sean" )
                 .subscribeOn( Schedulers.io( ) ).observeOn( AndroidSchedulers.mainThread( ) )
