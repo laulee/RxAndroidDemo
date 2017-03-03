@@ -31,11 +31,12 @@ public abstract class ErrorHandler<T> implements Action1<Throwable> {
                 e.printStackTrace( );
             }
         } else {
+            onException( throwable );
             throwable.printStackTrace( );
         }
     }
 
     public abstract void onError( T s );
 
-    public abstract void onException( IOException e );
+    public abstract void onException( Throwable e );
 }

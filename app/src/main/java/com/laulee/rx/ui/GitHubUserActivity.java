@@ -20,7 +20,6 @@ import com.laulee.rx.http.service.GitHubService;
 import com.laulee.rx.ui.rxbinding.RxBindingActivity;
 import com.laulee.rx.ui.rxcyclelife.RxCycleLifeActivity;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -62,12 +61,12 @@ public class GitHubUserActivity extends AppCompatActivity {
                 new BaseRecyclerAdapter.IOnItemClickListener<GitHubUser>( ) {
                     @Override
                     public void onItemClick( View view, GitHubUser entity, int position ) {
-                        if(position%2==0){
-                            startActivity(
-                                    new Intent( GitHubUserActivity.this, RxCycleLifeActivity.class ) );
-                        }else {
-                            startActivity(
-                                    new Intent( GitHubUserActivity.this, RxBindingActivity.class ) );
+                        if( position % 2 == 0 ) {
+                            startActivity( new Intent( GitHubUserActivity.this,
+                                                       RxCycleLifeActivity.class ) );
+                        } else {
+                            startActivity( new Intent( GitHubUserActivity.this,
+                                                       RxBindingActivity.class ) );
                         }
                     }
                 } );
@@ -89,9 +88,9 @@ public class GitHubUserActivity extends AppCompatActivity {
                                 }
 
                                 @Override
-                                public void onException( IOException e ) {
-                                    Toast.makeText( getApplicationContext( ), e.getMessage(), Toast.LENGTH_LONG )
-                                            .show( );
+                                public void onException( Throwable e ) {
+                                    Toast.makeText( getApplicationContext( ), e.getMessage( ),
+                                                    Toast.LENGTH_LONG ).show( );
                                 }
 
                             } );
