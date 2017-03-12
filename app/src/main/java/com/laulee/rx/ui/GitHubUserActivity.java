@@ -78,22 +78,20 @@ public class GitHubUserActivity extends AppCompatActivity {
         final GitHubService gitHubService = RetrofitHelper.getGitHubService( );
         Subscription subscription = gitHubService.getUserData( "adfasdfasdfas" )
                 .subscribeOn( Schedulers.io( ) ).observeOn( AndroidSchedulers.mainThread( ) )
-                .subscribe( gitHubUserAdapter::addItem,
-                            new ErrorHandler<ErrorBean>( ErrorBean.class ) {
-                                @Override
-                                public void onError( ErrorBean errorBean ) {
-                                    Toast.makeText( getApplicationContext( ),
-                                                    errorBean.getMessage( ), Toast.LENGTH_LONG )
-                                            .show( );
-                                }
+                .subscribe( gitHubUserAdapter::addItem, new ErrorHandler<ErrorBean>( ) {
+                    @Override
+                    public void onError( ErrorBean errorBean ) {
+                        Toast.makeText( getApplicationContext( ), errorBean.getMessage( ),
+                                        Toast.LENGTH_LONG ).show( );
+                    }
 
-                                @Override
-                                public void onException( Throwable e ) {
-                                    Toast.makeText( getApplicationContext( ), e.getMessage( ),
-                                                    Toast.LENGTH_LONG ).show( );
-                                }
+                    @Override
+                    public void onException( Throwable e ) {
+                        Toast.makeText( getApplicationContext( ), e.getMessage( ),
+                                        Toast.LENGTH_LONG ).show( );
+                    }
 
-                            } );
+                } );
 
         Subscription subscription1 = gitHubService.getUserData( "sean" )
                 .subscribeOn( Schedulers.io( ) ).observeOn( AndroidSchedulers.mainThread( ) )
