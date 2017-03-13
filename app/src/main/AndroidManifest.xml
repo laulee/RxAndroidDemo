@@ -10,17 +10,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.GitHubUserActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.rxcyclelife.RxCycleLifeActivity"
+            android:name=".ui.SimpleActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.rxbinding.RxBindingActivity"
+            android:name=".ui.LambdaActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.MoreActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.GitHubUserActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.RxCycleLifeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.RxBindingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>

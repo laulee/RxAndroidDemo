@@ -17,8 +17,6 @@ import com.laulee.rx.bean.GitHubUser;
 import com.laulee.rx.http.ErrorHandler;
 import com.laulee.rx.http.RetrofitHelper;
 import com.laulee.rx.http.service.GitHubService;
-import com.laulee.rx.ui.rxbinding.RxBindingActivity;
-import com.laulee.rx.ui.rxcyclelife.RxCycleLifeActivity;
 
 import java.util.ArrayList;
 
@@ -73,6 +71,9 @@ public class GitHubUserActivity extends AppCompatActivity {
         getUserData( );
     }
 
+    /**
+     * 获得数据
+     */
     private void getUserData() {
 
         final GitHubService gitHubService = RetrofitHelper.getGitHubService( );

@@ -1,4 +1,4 @@
-package com.laulee.rx.ui.rxcyclelife;
+package com.laulee.rx.ui;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -30,8 +30,10 @@ public class RxCycleLifeActivity extends RxAppCompatActivity {
         setContentView( R.layout.activity_rxcycle_life );
         ButterKnife.bind( this );
 
-        Observable.interval( 1, TimeUnit.SECONDS ).observeOn( AndroidSchedulers.mainThread( ) )
-                .compose( bindToLifecycle( ) ).subscribe( this::showTime );
+        Observable.interval( 1, TimeUnit.SECONDS )
+                .observeOn( AndroidSchedulers.mainThread( ) )
+                .compose( bindToLifecycle( ) )// 管理生命周期, 防止内存泄露
+                .subscribe( this::showTime );
     }
 
     private void showTime( Long time ) {

@@ -1,4 +1,4 @@
-package com.laulee.rx.ui.rxbinding;
+package com.laulee.rx.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
